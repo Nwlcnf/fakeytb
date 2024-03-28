@@ -54,14 +54,11 @@ public class RoleController{
 
     @GetMapping("/roles/{roleTitle}/users")
     public ResponseEntity<List<User>> getUsersByRole(@PathVariable String roleTitle) {
-        // Trouver le rôle par son titre
         Role role = roleRepository.findByTitle(roleTitle);
 
         if (role == null) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le rôle n'existe pas");
         }
-
-        // Récupérer tous les utilisateurs appartenant à ce rôle
         List<User> users = userRepository.findByRole(role);
 
         return ResponseEntity.ok(users);

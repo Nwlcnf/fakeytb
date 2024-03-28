@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping
+    @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<User> users = userRepository.findAll();
         List<UserDto> userDtos = users.stream()
